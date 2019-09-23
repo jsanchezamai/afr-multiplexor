@@ -1,0 +1,278 @@
+{
+	"name": "LinkedWiki",
+	"version": "3.2.1",
+	"author": [
+		"[https://www.mediawiki.org/wiki/User:Karima_Rafes Karima Rafes]"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:LinkedWiki",
+	"descriptionmsg": "linkedwiki-desc",
+	"license-name": "CC-BY-SA-4.0",
+	"type": "datavalues",
+	"namespaces": [
+		{
+			"@doc": "NamespaceRelations with NS_MAIN",
+			"id": 10000,
+			"constant": "NS_DATA",
+			"name": "Data",
+			"protection": "data-edit"
+		},
+		{
+			"@doc": "NamespaceRelations with NS_USER",
+			"id": 10002,
+			"constant": "NS_USER_DATA",
+			"name": "UserData",
+			"protection": "data-edit"
+		},
+		{
+			"id": 10010,
+			"constant": "NS_SCHEMA",
+			"name": "Schema",
+			"protection": "data-edit"
+		},
+		{
+			"id": 10011,
+			"constant": "NS_SCHEMA_TALK",
+			"name": "Schema_talk"
+		},
+		{
+			"id": 10030,
+			"constant": "NS_DATATYPE",
+			"name": "Datatype",
+			"protection": "data-edit"
+		},
+		{
+			"id": 10031,
+			"constant": "NS_DATATYPE_TALK",
+			"name": "Datatype_talk"
+		}
+	],
+	"AvailableRights": [
+		"data-edit"
+	],
+	"GroupPermissions": {
+		"sysop": {
+			"data-edit" : true
+		},
+		"data": {
+			"data-edit" : true
+		}
+	},
+	"AutoloadClasses": {
+		"LinkedWikiConfig": "LinkedWikiConfig.php",
+		"LinkedWiki": "LinkedWiki.php",
+
+		"SpecialSparqlQuery": "specialpages/SpecialSparqlQuery.php",
+		"SpecialSparqlFlintEditor": "specialpages/SpecialSparqlFlintEditor.php",
+		"SpecialLinkedWikiConfig": "specialpages/SpecialLinkedWikiConfig.php",
+		"SpecialRDFUnit": "specialpages/SpecialRDFUnit.php",
+		"SpecialRDFSave": "specialpages/SpecialRDFSave.php",
+
+		"SparqlParser": "parser/SparqlParser.php",
+		"WSparqlParser": "parser/WSparqlParser.php",
+		"ToolsParser": "parser/ToolsParser.php",
+		"LwgraphTag": "tag/LwgraphTag.php",
+
+		"RDFTag": "tag/RDFTag.php",
+
+		"Scribunto_LuaLinkedWikiLibrary": "lua/LinkedWiki.lua.php",
+
+		"StorageMethodAbstract": "storageMethod/StorageMethodAbstract.php",
+		"StorageInGraphMethod": "storageMethod/StorageInGraphMethod.php",
+		"SimpleStorageMethod": "storageMethod/SimpleStorageMethod.php",
+		"WikidataStorageMethod": "storageMethod/WikidataStorageMethod.php",
+		"DatabaseTestDataMethod": "storageMethod/DatabaseTestDataMethod.php",
+
+		"SynchroniseThreadArticleLinkedDataJob": "job/SynchroniseThreadArticleLinkedDataJob.php"
+	},
+	"JobClasses": {
+		"SynchroniseThreadArticleLinkedDataJob": "SynchroniseThreadArticleLinkedDataJob"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": [
+			"LinkedWiki::parserFirstCallInit"
+		],
+		"ScribuntoExternalLibraries": [
+			"LinkedWiki::scribuntoExternalLibraries"
+		],
+		"RawPageViewBeforeOutput": [
+			"RDFTag::RawRDFSource"
+		],
+		"EditFilterMergedContent": [
+			"RDFTag::onEditFilterMergedContent"
+		],
+		"ArticleDeleteComplete": [
+			"LinkedWiki::onArticleDeleteComplete"
+		],
+		"TitleMoveComplete": [
+			"LinkedWiki::onTitleMoveComplete"
+		],
+		"BeforePageDisplay": [
+			"LinkedWiki::onBeforePageDisplay"
+		]
+	},
+	"MessagesDirs": {
+		"LinkedWiki": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"linkedwiki-specialsparqlquery-alias": "specialpages/SpecialSparqlQuery.alias.php",
+		"linkedwiki-specialsparqlflinteditor-alias": "specialpages/SpecialSparqlFlintEditor.alias.php",
+		"linkedwiki-specialLinkewikiconfig-alias": "specialpages/SpecialLinkedWikiConfig.alias.php",
+		"linkedwiki-specialrdfunit-alias": "specialpages/SpecialRDFUnit.alias.php",
+		"linkedwiki-specialrdfsave-alias": "specialpages/SpecialRDFSave.alias.php",
+		"LinkedWikiMagic": "LinkedWiki.i18n.magic.php"
+	},
+	"ResourceModules": {
+		"ext.LinkedWiki.table2CSV": {
+			"group": "ext.LinkedWiki",
+			"scripts": [
+				"js/table2CSV.js"
+			]
+		},
+		"ext.LinkedWiki.lwgraph": {
+			"group": "ext.LinkedWiki",
+			"scripts": [
+				"js/lwgraph.js"
+			]
+		},
+		"ext.LinkedWiki.flowchart": {
+			"group": "ext.LinkedWiki",
+			"scripts": [
+				"js/flowchart.js"
+			],
+			"dependencies": [
+				"ext.LinkedWiki.lwgraph"
+			]
+		},
+		"ext.LinkedWiki.flint": {
+			"group": "ext.LinkedWiki",
+			"scripts": [
+				"js/FlintSparqlEditor/sparql/lib/codemirror.js",
+				"js/FlintSparqlEditor/sparql/lib/jquery-migrate-1.0.0.js",
+				"js/FlintSparqlEditor/sparql/sparql10querymode_ll1.js",
+				"js/FlintSparqlEditor/sparql/sparql11querymode_ll1.js",
+				"js/FlintSparqlEditor/sparql/sparql11updatemode_ll1.js",
+				"js/FlintSparqlEditor/sparql/flint-editor.js",
+				"js/FlintSparqlEditor/sparql/init-local.js"
+			],
+			"styles": [
+				"js/FlintSparqlEditor/sparql/lib/codemirror.css",
+				"js/FlintSparqlEditor/sparql/css/sparqlcolors.css",
+				"js/FlintSparqlEditor/sparql/css/docs.css"
+			]
+		},
+		"ext.LinkedWiki.sgvizler2": {
+			"scripts": [
+				"node_modules/sgvizler2/build/browser/sgvizler2.min.js"
+			]
+		},
+		"ext.LinkedWiki.bootstrap": {
+			"scripts": [
+				"node_modules/popper.js/dist/umd/popper.min.js",
+				"node_modules/bootstrap/dist/js/bootstrap.min.js",
+				"node_modules/sgvizler2/build/browser/lib/bootstrap-select/js/bootstrap-select.js"
+			],
+			"styles": [
+				"node_modules/bootstrap/dist/css/bootstrap.min.css",
+				"node_modules/font-awesome/css/font-awesome.min.css",
+				"node_modules/sgvizler2/build/browser/lib/bootstrap-select/css/bootstrap-select.min.css"
+			]
+		},
+		"ext.LinkedWiki.SpecialSparqlQuery": {
+			"scripts": [
+				"keys.js",
+				"js/SparqlEditor/form.js"
+			],
+			"dependencies": [
+				"ext.LinkedWiki.bootstrap",
+				"ext.LinkedWiki.sgvizler2"
+			]
+		},
+		"ext.LinkedWiki.SparqlParser": {
+			"scripts": [
+				"keys.js",
+				"js/lwsgvizler2.js"
+			],
+			"dependencies": [
+				"ext.LinkedWiki.sgvizler2"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "LinkedWiki"
+	},
+	"SpecialPages": {
+		"linkedwiki-specialsparqlquery": "SpecialSparqlQuery",
+		"linkedwiki-specialsparqlflinteditor": "SpecialSparqlFlintEditor",
+		"linkedwiki-speciallinkedwikiconfig": "SpecialLinkedWikiConfig",
+		"linkedwiki-specialrdfunit": "SpecialRDFUnit",
+		"linkedwiki-specialrdfsave": "SpecialRDFSave"
+	},
+	"manifest_version": 1,
+	"requires": {
+		"MediaWiki": ">= 1.32.0"
+	},
+	"ConfigRegistry": {
+		"ext-conf-linkedwiki": "LinkedWiki::makeConfig"
+	},
+	"config": {
+		"_prefix": "ext-conf-linkedwiki",
+		"querySparqlInSpecialPage": "select * where \n { ?x ?y ?z . } \nLIMIT 15",
+		"endpointDefault": "http://www.wikidata.org",
+		"@doc": "http://www.example.org is the config by default. If you need to change, be careful about orther endpoints.",
+		"endpoint": {
+			"http://www.plaza-aleph.net/wiki": {
+				"isReadOnly": true,
+				"debug": false,
+				"proxyHost": "",
+				"proxyPort": 0,
+				"endpointRead": "http://www.plaza-aleph.net/wiki/sparql",
+				"endpointWrite": "",
+				"login": "",
+				"password": "",
+				"HTTPMethodForRead": "POST",
+				"HTTPMethodForWrite": "POST",
+				"nameParameterRead": "query",
+				"nameParameterWrite": "update",
+				"lang": "en",
+				"storageMethodClass": "SimpleStorageMethod"
+			},
+			"http://www.wikidata.org": {
+				"debug": false,
+				"isReadOnly": true,
+				"endpointRead": "http://www.plaza-aleph.net/wiki/sparql",
+				"typeRDFDatabase": "blazegraph",
+				"HTTPMethodForRead": "GET",
+				"storageMethodClass": "WikidataStorageMethod",
+				"lang": "en"
+			},
+			"http://database-test/data": {
+				"debug": false,
+				"isReadOnly": false,
+				"typeRDFDatabase": "virtuoso",
+				"endpointRead": "http://database-test:8890/sparql/",
+				"endpointWrite": "http://database-test:8890/sparql-auth/",
+				"login": "dba",
+				"password": "dba",
+				"HTTPMethodForRead": "POST",
+				"HTTPMethodForWrite": "POST",
+				"lang": "en",
+				"storageMethodClass": "DatabaseTestDataMethod",
+				"nameParameterRead": "query",
+				"nameParameterWrite": "update"
+			},
+			"http://database-test2": {
+				"isReadOnly": true,
+				"typeRDFDatabase": "fuseki",
+				"endpointRead": "http://172.17.0.2/test/sparql",
+				"HTTPMethodForRead": "GET"
+			}
+		},
+
+		"endpointSaveDataOfWiki": "http://database-test/data",
+		"checkRDFPage" : false
+	},
+	"load_composer_autoloader": true
+}
