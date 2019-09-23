@@ -1,0 +1,23 @@
+{
+  "name": "afr-multiplexor",
+  "version": "0.0.1",
+  "description": "https://escrivivir.wordpress.com/a-favor-de-la-revolucion/afr-campus/afr-campus-aula-de-redes-y-desarrollo/",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsanchezamai/afr-multiplexor.git"
+  },
+  "keywords": [
+    "aula-de-redes-y-desarrollo-campus-afr"
+  ],
+  "author": "afr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsanchezamai/afr-multiplexor/issues"
+  },
+  "homepage": "https://github.com/jsanchezamai/afr-multiplexor#readme"
+}
